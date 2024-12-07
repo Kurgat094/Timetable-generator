@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+<form action="" method="post">
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <h2>Register Teacher</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Add Teacher</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Unit</th>
+                    <th>Email</th>
+                    <th>Date Joined</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for teacher in teachers %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ teacher.first_name }}</td>
+                    <td>{{ teacher.last_name }}</td>
+                    <td>{{ teacher.subject }}</td>
+                    <td>{{ teacher.email }}</td>
+                    <td>{{ teacher.date_joined|date:"d M Y, H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No teachers registered yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</form>
+
+{% endblock %}

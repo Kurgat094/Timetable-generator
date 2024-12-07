@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register units
+{% endblock %}
+
+{% block content %} 
+<form action="" method="post ">
+    <div class="container">
+        <h1>Register Unit</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Unit</button>
+    </form>
+
+    <h2>Registered Units</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Teacher</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for unit in units %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ unit.name }}</td>
+                <td>{{ unit.code }}</td>
+                <td>{{ unit.description|default:"N/A" }}</td>
+                <td>{{ unit.teacher|default:"Not Assigned" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No units registered yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</form>
+{% endblock %}
